@@ -1,0 +1,26 @@
+//click是方法;并非原生DOM的方法 click与onclick用法混乱的话 也算行得通
+<script>
+        // 这个案例演示如何使用XMLHttpRequest发送 验证用户名是否存在  的请求，并接收验证结果，实现页面信息的渲染
+        // 使用的接口是：  “0：简单体验前台向后台发送请求”
+        // 1.为元素绑定失焦事件，在文本框失去焦点的时候立刻发起验证用户名是否存在的请求
+        document.querySelector(".btn").click=function () {
+            // 2..创建异步对象
+            let xhr = new XMLHttpRequest()
+            // 3.设置请求行
+            xhr.open('get','http://127.0.0.1:3002/getinfo')
+            // 4.设置请求头：get方式不需要设置请求头
+            // 5.设置请求体：get方式不需要在send中传递参数，get方式请求的时候传递null即可
+            xhr.send('ok')
+
+            // 6.添加请求完成的监听，当异步对象完成请求并接收到服务器的响应时会自动的触发onload事件
+            // 我们只需要确定在接收返回值之后如何进行处理
+            xhr.onload = function(){
+                console.log(this)
+                if(this.status == 200){
+                    // responseText:服务器响应回来的文本内容
+                    console.log(this.responseText)
+                }
+            }
+        }
+        document.querySelector(".btn").click();
+    </script>
